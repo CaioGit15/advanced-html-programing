@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora da Oficina</title>
+</head>
+<body>
+    <h1> Calculadora da Oficina </h1>
+    <h2> Insira o primeiro número: </h2>
+    <input type="number" id="nUm" placeholder="Insira aqui">
+    <h2> Insira o último número: </h2>
+    <input type="number" id="nDois" placeholder="Insira aqui">
+    <h2> Selecione a operação: </h2>
+    <select id="operacao">
+        <option value="soma"> + </option>
+        <option value="subtracao"> - </option>
+        <option value="multi"> X </option>
+        <option value="divi"> % </option>
+    </select>
+    <button id="calcular" onclick="calcular()"> Calcular </button>
+    <p id="resultadoOperacao"> Resultado: </p>
+    <script>
+        let nUm = document.getElementById("nUm");
+        let nDois = document.getElementById("nDois");
+        let operacao = document.getElementById("operacao");
+        let resultadoOperacao = document.getElementById("resultadoOperacao");        
+        function calcular() {
+                let resultado;
+                let v1 = Number(nUm.value);
+                let v2 = Number(nDois.value);
+                let op = operacao.value;
+            if(op === "soma") {
+                resultado = v1 + v2;
+                resultadoOperacao.textContent = "Resultado: " + resultado;
+            } else if(op === "subtracao") {
+                resultado = v1 - v2;
+                resultadoOperacao.textContent = "Resultado: " + resultado;
+            } else if(op === "multi") {
+                resultado = v1 * v2;
+                resultadoOperacao.textContent = "Resultado: " + resultado;
+            } else if(op === "divi") {
+                resultado = v1 / v2;
+                resultadoOperacao.textContent = "Resultado: " + resultado;
+            }
+    }
+    </script>
+</body>
+</html>

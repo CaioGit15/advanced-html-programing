@@ -1,0 +1,30 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+</head>
+<body>
+    <h1> Cadastro </h1>
+    <h2> Nome: </h2>
+    <input type="text" id="nome" placeholder="Insira seu nome aqui">
+    <h2> Email </h2>
+    <input type="email" id="email" placeholder="Insira seu email aqui">
+    <button onclick="cadastrar()" id="cadastrar"> Cadastrar </button>
+    <p id="status"></p>
+    <script>
+        function cadastrar() {
+        const nome = document.getElementById('nome').value;
+        const email = document.getElementById('email').value;
+        const status = document.getElementById('status');
+       
+        if(nome === "" || email === "") {
+            alert("Preencha os dois campos.");
+        } else {
+            status.innerText = "Cadastro de " + nome + " de email " + email + " foi concluído com sucesso!"
+            }
+        }
+    </script>
+</body>
+</html>

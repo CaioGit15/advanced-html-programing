@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porteiro Digital</title>
+</head>
+<body>
+    <h1> Portaria </h1>
+    <h2> Digite sua idade: </h2>
+    <input type="number" id="idade" placeholder="Digite sua idade aqui">
+    <button onclick="verificarIdade()"> Verificar </button>
+    <p id="status"> Status:  </p>
+    <script>
+        let status = document.getElementById("status");
+        function verificarIdade() {
+            let idade = Number(document.getElementById("idade").value);
+            if(idade >= 18) {
+                status.textContent = "Status: Acesso Permitido!";
+            } else if(idade < 18) {
+                status.textContent = "Status: Acesso Negado.";
+            } else {
+                status.textContent = "Status: Erro. Idade inválida.";
+            }
+        }
+    </script>
+</body>
+</html>

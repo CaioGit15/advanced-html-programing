@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Automatizado</title>
+</head>
+<body>
+    <h1> Calculadora de Médias </h1>
+    <h2> Insira a primeira nota: </h2>
+    <input type="number" id="notaUm" placeholder="Insira aqui">
+    <h2> Insira a última nota: </h2>
+    <input type="number" id="notaDois" placeholder="Insira aqui">
+    <button onclick="calcularNota()"> Calcular </button>
+    <p id="resultado"> Resultado: </p>
+    <script>
+        let resultado = document.getElementById("resultado");
+        function calcularNota() {
+            let notaUm = Number(document.getElementById("notaUm").value);
+            let notaDois = Number(document.getElementById("notaDois").value);
+            let media = (notaUm + notaDois) / 2;
+            resultado.textContent = "Resultado: " + media;
+            if(media >= 7) {
+                resultado.textContent += "\n Aluno está APROVADO!";
+                resultado.style.color = "green";
+            } else if(media >= 5) {
+                resultado.textContent += "\n Aluno está de RECUPERAÇÃO."
+                resultado.style.color = "yellow";
+            } else {
+                resultado.textContent += "\n Aluno está REPROVADO.";
+                resultado.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>

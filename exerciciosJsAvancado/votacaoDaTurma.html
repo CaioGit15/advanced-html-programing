@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votação</title>
+</head>
+<body>
+    <h1> Votação </h1>
+    <button onclick="votoCandidatoUm()" id="candidatoUm"> Fulano </button>
+    <p id="votosUm"> 0 </p>
+    <button onclick="votoCandidatoDois()" id="candidatoDois"> Maria </button>
+    <p id="votosDois"> 0 </p>
+    <button onclick="votoCandidatoTres()" id="candidatoTres"> Matheus </button>
+    <p id="votosTres"> 0 </p>
+    <h2 id="vencedor"> Ninguém está ganhando! </h2>
+<script>
+    let votos1 = 0;
+    let votos2 = 0;
+    let votos3 = 0;
+
+
+    function votoCandidatoUm() {
+        votos1++;
+        document.getElementById('votosUm').innerText = votos1;
+        atualizarPlacar();
+    }
+    function votoCandidatoDois() {
+        votos2++;
+        document.getElementById('votosDois').innerText = votos2;
+        atualizarPlacar();
+    }
+    function votoCandidatoTres() {
+        votos3++;
+        document.getElementById('votosTres').innerText = votos3;
+        atualizarPlacar();
+    }
+    function atualizarPlacar() {
+        const vencedorTexto = document.getElementById('vencedor');
+       
+        if (votos1 > votos2 && votos1 > votos3) {
+            vencedorTexto.innerText = "Fulano está ganhando!";
+        } else if (votos2 > votos1 && votos2 > votos3) {
+            vencedorTexto.innerText = "Maria está ganhando!";
+        } else if (votos3 > votos1 && votos3 > votos2) {
+            vencedorTexto.innerText = "Matheus está ganhando!";
+        } else {
+            vencedorTexto.innerText = "A votação está empatada!";
+        }
+    }
+</script>
+</body>
+</html>

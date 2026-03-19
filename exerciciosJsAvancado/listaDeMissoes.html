@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo Online</title>
+</head>
+<body>
+    <h1> Lista de Missões: </h1>
+   <ul id="missoes">
+    <li> Nenhuma missão encontrada... </li>
+   </ul>
+    <input type="text" id="missao" placeholder="Digite a missão aqui">
+    <button onclick="adicionarMissao()"> Adicionar Missão </button>
+
+
+    <script>
+        function adicionarMissao() {
+            const missao = document.getElementById('missao').value;
+            if(missao) {
+                const missoes = document.getElementById('missoes');
+                if(missoes.innerHTML === "Nenhuma missão encontrada...") {
+                    missoes.innerHTML = missao;
+                } else {
+                    missoes.innerHTML += `<br><span onclick="concluirMissao(this)">${missao}</span>`;
+                }
+            }
+        }
+
+
+        function concluirMissao(elemento) {
+            const missoes = document.getElementById('missoes');
+            const missoesConcluidas = document.getElementById('MissoesConcluidas');
+            elemento.style.textDecoration = "line-through";
+            elemento.style.color = "green";
+        }
+    </script>
+</body>
+</html>

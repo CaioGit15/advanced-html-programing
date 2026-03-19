@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+</head>
+<body>
+    <h1> Blog Interessante </h1>
+    <h2> Contador de Curtidas: </h2>
+    <button onclick="curtir()"> Curtir </button>
+    <p id="total"> Total de Curtidas: 0 </p>
+    <script>
+        let total = document.getElementById("total");
+        let contador = 0;
+        function curtir() {
+            contador++;
+            total.textContent = "Total de Curtidas: " + contador;
+        }
+    </script>
+</body>
+</html>

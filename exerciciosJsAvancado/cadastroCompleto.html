@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Completo</title>
+</head>
+<body>
+    <h1> Cadastro </h1>
+    <h2> Nome: </h2>
+    <input type="text" id="nome" placeholder="Insira seu nome aqui">
+    <p id="possivelErroNome"></p>
+    <h2> Email: </h2>
+    <input type="email" id="email" placeholder="Insira seu email aqui">
+    <p id="possivelErroEmail"></p>
+    <h2> Idade: </h2>
+    <input type="number" id="idade" placeholder="Insira sua idade aqui">
+    <p id="possivelErroIdade"></p>
+    <h2> Senha: </h2>
+    <input type="password" id="senha" placeholder="Insira sua senha aqui">
+    <p id="possivelErroSenha"></p>
+    <h2> Confirmar Senha: </h2>
+    <input type="password" id="confirmarSenha" placeholder="Confirme sua senha aqui">
+    <p id="possivelErroConfirmarSenha"></p>
+    <button onclick="cadastrar()" id="cadastrar"> Cadastrar </button>
+
+
+    <script>
+    function cadastrar() {
+        const campoNome = document.getElementById('nome');
+        const campoEmail = document.getElementById('email');
+        const campoIdade = document.getElementById('idade');
+        const campoSenha = document.getElementById('senha');
+        const campoConfirmar = document.getElementById('confirmarSenha');
+
+
+        const erroNome = document.getElementById('possivelErroNome');
+        const erroEmail = document.getElementById('possivelErroEmail');
+        const erroIdade = document.getElementById('possivelErroIdade');
+        const erroSenha = document.getElementById('possivelErroSenha');
+        const erroConfirmar = document.getElementById('possivelErroConfirmarSenha');
+
+
+        const erros = [erroNome, erroEmail, erroIdade, erroSenha, erroConfirmar];
+        erros.forEach(e => { e.innerText = ""; e.style.color = "red"; });
+
+
+        let temErro = false;
+
+
+        if (campoNome.value === "") {
+            erroNome.innerText = "Nome obrigatório!";
+            temErro = true;
+        }
+        if (campoEmail.value === "") {
+            erroEmail.innerText = "E-mail obrigatório!";
+            temErro = true;
+        }
+        if (campoIdade.value === "" || campoIdade.value < 18) {
+            erroIdade.innerText = "Idade inválida!";
+            temErro = true;
+        }
+        if (campoSenha.value.length < 8) {
+            erroSenha.innerText = "A senha deve ter no mínimo 8 caracteres!";
+            temErro = true;
+        } else if (campoSenha.value !== campoConfirmar.value) {
+            erroConfirmar.innerText = "As senhas não são iguais!";
+            temErro = true;
+        }
+
+
+        if (!temErro) {
+            alert("Cadastro concluído com sucesso!");
+            campoNome.value = "";
+            campoEmail.value = "";
+            campoIdade.value = "";
+            campoSenha.value = "";
+            campoConfirmar.value = "";
+        }
+    }
+    </script>
+</body>
+</html>

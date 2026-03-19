@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Tabuadas</title>
+</head>
+<body>
+    <h1> Gerador de Tabuadas </h1>
+    <h2> Insira um número qualquer para gerar a tabuada do mesmo de 1 até 10! </h2>
+    <h3> Insira o número: </h3>
+    <input type="number" id="num" placeholder="Inserir número aqui">
+    <button onclick="gerarTabuada()"> Gerar Tabuada </button>
+    <p id="resultado"> Resultado:  </p>
+
+
+    <script>
+        let i = 0;
+        let resultado = document.getElementById("resultado");
+        function gerarTabuada() {
+            let num = document.getElementById("num").value;
+            let tabuada = "";
+            while(i < 10) {
+                i++;
+                tabuada += num + " X " + i + " = " + (num * i) + "<br>";
+            }
+            resultado.innerHTML = "\nResultado:<br>" + tabuada;
+        }
+    </script>
+</body>
+</html>

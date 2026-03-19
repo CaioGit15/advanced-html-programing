@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Adivinhação</title>
+</head>
+<body>
+    <h1> Jogo de Adivinhação </h1>
+    <h2> Insira um número entre 1 e 20 </h2>
+    <input type="number" id="tentativa">
+    <button onclick="verificar()" id="verificar"> Verificar </button>
+    <p id="status"></p>
+    <script>
+        let numSecreto = Math.floor(Math.random() * 20) + 1;
+        function verificar() {
+            const status = document.getElementById('status');
+            const tentativa = document.getElementById('tentativa').value;
+            if(tentativa == numSecreto) {
+                alert("Parabéns, acertou!");
+            } else if(tentativa >= numSecreto) {
+                status.innerText = "O número secreto é MENOR!"
+            } else {
+                status.innerText = "O número secreto é MAIOR!"
+            }
+        }
+    </script>
+</body>
+</html>

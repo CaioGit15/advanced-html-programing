@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Filmes</title>
+</head>
+<body>
+    <h1> Catálogo de Filmes </h1>
+    
+    <h2> Cadastro de filme: </h2>
+    <h3> Nome do filme: </h3>
+    <input type="text" id="inputNome" placeholder="Insira o nome do filme aqui">
+    
+    <h3> Gênero do filme: </h3>
+    <select id="menuGenero">
+        <option value="Ação"> Ação </option>
+        <option value="Comédia"> Comédia </option>
+        <option value="Terror"> Terror </option>
+    </select>
+    
+    <h3> Idade recomendada: </h3>
+    <select id="menuIdade">
+        <option> Livre </option>
+        <option> 10 anos </option>
+        <option> 12 anos </option>
+        <option> 14 anos </option>
+        <option> 16 anos </option>
+        <option> 18 anos </option>
+    </select>
+    
+    <br><br>
+    <button onclick="cadastrar()"> Cadastrar Filme </button>
+
+    <hr>
+
+    <h2> Filtrar por Gênero: </h2>
+    <select id="filtroGenero" onchange="mostrarFilmes()">
+        <option value="Todos"> Todos </option>
+        <option value="Ação"> Ação </option>
+        <option value="Comédia"> Comédia </option>
+        <option value="Terror"> Terror </option>
+    </select>
+
+    <ul id="listaFilmes"></ul>
+
+    <script>
+        let filmes = [];
+
+        function cadastrar() {
+            const nome = document.getElementById('inputNome').value;
+            const genero = document.getElementById('menuGenero').value;
+            const idade = document.getElementById('menuIdade').value;
+
+            if (nome.trim() !== "") {
+                const novoFilme = { nome, genero, idade };
+                filmes.push(novoFilme);
+                document.getElementById('inputNome').value = '';
+                mostrarFilmes();
+            }
+        }
+
+        function mostrarFilmes() {
+            const lista = document.getElementById('listaFilmes');
+            const filtro = document.getElementById('filtroGenero').value;
+            lista.innerHTML = '';
+
+            let filmesExibidos = filmes;
+
+            if (filtro !== "Todos") {
+                filmesExibidos = filmes.filter(f => f.genero === filtro);
+            }
+
+            filmesExibidos.forEach(filme => {
+                const li = document.createElement('li');
+                li.textContent = `${filme.nome} | Gênero: ${filme.genero} | Idade: ${filme.idade}`;
+                lista.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>

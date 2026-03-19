@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking de Jogadores</title>
+</head>
+<body>
+    <h1> Ranking de Jogadores </h1>
+
+    <input type="text" id="nome" placeholder="Nome do Jogador">
+    <input type="number" id="pontos" placeholder="Pontos">
+    <button onclick="adicionar()"> Cadastrar </button>
+
+    <hr>
+    <ul id="listaRanking"></ul>
+
+    <script>
+        let jogadores = [];
+
+        function adicionar() {
+            const nomeInput = document.getElementById('nome');
+            const pontosInput = document.getElementById('pontos');
+            const nome = nomeInput.value;
+            const pontos = parseInt(pontosInput.value);
+
+            if (nome.trim() !== "" && !isNaN(pontos)) {
+                jogadores.push({ nome, pontos });
+                jogadores.sort((a, b) => b.pontos - a.pontos);
+                
+                nomeInput.value = '';
+                pontosInput.value = '';
+                atualizarTela();
+            }
+        }
+
+        function atualizarTela() {
+            const lista = document.getElementById('listaRanking');
+            
+            const htmlItems = jogadores.map((j, i) => {
+                return <li>${i + 1}º - ${j.nome}: ${j.pontos} pontos</li>;
+            });
+
+            lista.innerHTML = htmlItems.join('');
+        }
+    </script>
+</body>
+</html>

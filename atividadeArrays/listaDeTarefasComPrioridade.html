@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lista de Tarefas por Prioridade</title>
+</head>
+
+
+<body>
+
+
+<h1>Lista de Tarefas por Prioridade</h1>
+
+
+<ul id="lista"></ul>
+
+
+<h2>Insira o nome da tarefa:</h2>
+<input type="text" id="input" placeholder="Insira a tarefa aqui">
+
+
+<h2>Selecione o nível de prioridade da tarefa:</h2>
+<select id="nivelPrioridade">
+    <option>Alta Prioridade</option>
+    <option>Média Prioridade</option>
+    <option>Baixa Prioridade</option>
+</select>
+
+
+<button onclick="adicionar()">Adicionar</button>
+
+
+<script>
+
+
+let tarefas = [];
+
+
+function adicionar(){
+
+
+    let input = document.getElementById("input");
+    let prioridade = document.getElementById("nivelPrioridade");
+
+
+    let texto = input.value;
+    let grau = prioridade.value;
+
+
+    if(texto !== ""){
+
+
+        let tarefa = {
+            nome: texto,
+            prioridade: grau
+        };
+
+
+        if(grau === "Alta Prioridade"){
+            tarefas.unshift(tarefa);
+        }else{
+            tarefas.push(tarefa);
+        }
+
+
+        atualizarLista();
+
+
+        input.value = "";
+    }
+}
+
+
+function atualizarLista(){
+
+
+    let lista = document.getElementById("lista");
+    lista.innerHTML = "";
+
+
+    for(let i = 0; i < tarefas.length; i++){
+
+
+        let li = document.createElement("li");
+
+
+        li.innerHTML = `${tarefas[i].nome} - ${tarefas[i].prioridade}`;
+
+
+        lista.appendChild(li);
+    }
+}
+
+
+</script>
+
+
+</body>
+</html>

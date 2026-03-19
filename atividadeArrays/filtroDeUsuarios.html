@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filtro de Usuários</title>
+</head>
+<body>
+<h1>Filtro de Usuários</h1>
+<ul id="lista"></ul>
+<h2>Nome do usuário:</h2>
+<input type="text" id="inputUser" placeholder="Insira o nome do usuário aqui">
+<h2>Idade do usuário:</h2>
+<input type="number" id="inputAge" placeholder="Insira a idade do usuário aqui">
+<br><br>
+<button onclick="adicionar()">Adicionar</button>
+<button onclick="apenasMaiores()">Mostrar apenas os maiores de 18 anos</button>
+<script>
+
+
+let usuarios = [];
+
+
+function adicionar(){
+    let nome = document.getElementById("inputUser").value;
+    let idade = Number(document.getElementById("inputAge").value);
+
+
+    if(nome !== "" && idade !== ""){
+
+
+        let usuario = {
+            nome: nome,
+            idade: idade
+        };
+
+
+        usuarios.push(usuario);
+        mostrarUsuarios(usuarios);
+        document.getElementById("inputUser").value = "";
+        document.getElementById("inputAge").value = "";
+    }
+}
+
+
+function apenasMaiores(){
+    let maiores = usuarios.filter(usuario => usuario.idade >= 18);
+    mostrarUsuarios(maiores);
+}
+
+
+function mostrarUsuarios(listaUsuarios){
+    let lista = document.getElementById("lista");
+    lista.innerHTML = "";
+
+
+    for(let i = 0; i < listaUsuarios.length; i++){
+        let li = document.createElement("li");
+        li.textContent = `${listaUsuarios[i].nome} - ${listaUsuarios[i].idade} anos`;
+        lista.appendChild(li);
+    }
+}
+</script>
+</body>
+</html>

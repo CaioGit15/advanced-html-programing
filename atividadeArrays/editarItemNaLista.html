@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Item da Lista de Tarefas</title>
+</head>
+<body>
+    <h1> Editar Item da Lista </h1>
+    <ul id="lista"></ul>
+    
+    <h2> Nome da tarefa: </h2>
+    <input type="text" id="itemInput" placeholder="Insira o nome da tarefa aqui">
+    <button onclick="adicionar()" id="adicionarBtn"> Adicionar </button>
+
+    <script>
+        let tarefas = [];
+
+        function atualizarLista() {
+            const ul = document.getElementById('lista');
+            ul.innerHTML = '';
+            
+            tarefas.forEach((tarefa, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = ` ${tarefa} <button onclick="editar(${index})"> Editar </button>`;
+                ul.appendChild(li);
+            });
+        }
+
+        function adicionar() {
+            const input = document.getElementById('itemInput');
+            if(input.value.trim() !== "") {
+                tarefas.push(input.value);
+                input.value = '';
+                atualizarLista();
+            }
+        }
+
+        function editar(index) {
+            const novoNome = prompt("Digite o novo nome da tarefa: ", tarefas[index]);
+            if(novoNome !== null && novoNome.trim() !== "") {
+                tarefas.splice(index, 1, novoNome);
+                atualizarLista();
+            }
+        }
+    </script>
+</body>
+</html>

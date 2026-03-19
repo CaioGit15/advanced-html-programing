@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transformando Dados Com Map</title>
+</head>
+
+
+<body>
+
+
+<h1>Produtos</h1>
+
+
+<ul id="listaDeProdutos"></ul>
+
+
+<h2>Insira o nome do produto:</h2>
+<input type="text" id="inputProduto" placeholder="Insira o nome do produto aqui">
+
+
+<h2>Insira o preço do produto:</h2>
+<input type="number" id="inputPreco" placeholder="Insira o preço do produto aqui">
+
+
+<h2>O produto está em promoção?</h2>
+<select id="promocao">
+    <option>Sim</option>
+    <option>Não</option>
+</select>
+
+
+<br><br>
+<button onclick="adicionar()">Adicionar Produto</button>
+
+
+<script>
+
+
+let produtos = [];
+
+
+function adicionar(){
+    let nome = document.getElementById("inputProduto").value;
+    let preco = Number(document.getElementById("inputPreco").value);
+    let promocao = document.getElementById("promocao").value;
+    if(nome !== "" && preco !== ""){
+        let produto = {
+            nome: nome,
+            preco: preco,
+            promocao: promocao
+        };
+
+
+        produtos.push(produto);
+        atualizarLista();
+
+
+        document.getElementById("inputProduto").value = "";
+        document.getElementById("inputPreco").value = "";
+    }
+}
+
+
+function atualizarLista(){
+    let lista = document.getElementById("listaDeProdutos");
+    lista.innerHTML = "";
+    let produtosComDesconto = produtos.map(produto => {
+        if(produto.promocao === "Sim"){
+            return {
+                nome: produto.nome,
+                preco: produto.preco * 0.9
+            };
+        }
+        return produto;
+    });
+    for(let i = 0; i < produtosComDesconto.length; i++){
+        let li = document.createElement("li");
+        li.innerHTML = `${produtosComDesconto[i].nome} - R$ ${produtosComDesconto[i].preco.toFixed(2)}`;
+        lista.appendChild(li);
+    }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>API Explorer</title>
+</head>
+<body>
+
+  <h1>API Explorer</h1>
+
+  <h2>1. Star Wars Personagens</h2>
+  ID: <input type="number" id="idPersonagem" value="1" min="1" max="83">
+  <button onclick="buscarPersonagem()">Buscar</button>
+  <button onclick="buscarAleatorioSW()">Aleatório</button>
+  <div id="sw-result"></div>
+  <hr>
+
+  <h2>2. Usuários Reais</h2>
+  Quantidade: <input type="number" id="qtdUsuarios" value="1" min="1" max="5">
+  <button onclick="buscarUsuarios()">Buscar</button>
+  <button onclick="buscarUsuario()">1 Aleatório</button>
+  <div id="user-result"></div>
+  <hr>
+
+  <h2>3. Países</h2>
+  Nome: <input type="text" id="nomePais" placeholder="Brazil">
+  <button onclick="buscarPais()">Buscar</button>
+  <button onclick="paisAleatorio()">Aleatório</button>
+  <div id="pais-result"></div>
+
+  <script>
+    function buscarPersonagem() {
+      const id = document.getElementById('idPersonagem').value;
+      document.getElementById('sw-result').innerHTML = 'Carregando...';
+      
+      fetch('https://swapi.dev/api/people/' + id + '/')
+        .then(r => r.json())
+        .then(data => {
+          document.getElementById('sw-result').innerHTML = `
+            <h3>${data.name}</h3>
+            <p>Altura: ${data.height}cm</p>
+            <p>Peso: ${data.mass}kg</p>
+            <p>Olhos: ${data.eye_color}</p>
+            <p>Gênero: ${data.gender}</p>
+          `;
+        })
+        .catch(() => {
+          document.getElementById('sw-result').innerHTML = 'Personagem não encontrado';
+        });
+    }
+
+    function buscarAleatorioSW() {
+      const id = Math.floor(Math.random() * 83) + 1;
+      document.getElementById('idPersonagem').value = id;
+      buscarPersonagem();
+    }
+
+    function buscarUsuarios() {
+      const qtd = document.getElementById('qtdUsuarios').value;
+      document.getElementById('user-result').innerHTML = 'Carregando...';
+      
+      fetch('https://randomuser.me/api/?results=' + qtd)
+        .then(r => r.json())
+        .then(data => {
+          let html = '';
+          data.results.forEach(u => {
+            html += `
+              <div style="border:1px solid #ccc; padding:10px; margin:5px 0;">
+                <img src="${u.picture.medium}" width="60">
+                <h4>${u.name.first} ${u.name.last}</h4>
+                <p>${u.email}</p>
+                <p>Idade: ${u.dob.age}</p>
+              </div>
+            `;
+          });
+          document.getElementById('user-result').innerHTML = html;
+        });
+    }
+
+    function buscarUsuario() {
+      document.getElementById('qtdUsuarios').value = 1;
+      buscarUsuarios();
+    }
+
+    function buscarPais() {
+      const nome = document.getElementById('nomePais').value;
+      if (!nome) return alert('Digite um país');
+      
+      document.getElementById('pais-result').innerHTML = 'Carregando...';
+      
+      fetch('https://restcountries.com/v3.1/name/' + nome)
+        .then(r => r.json())
+        .then(data => {
+          const p = data[0];
+          document.getElementById('pais-result').innerHTML = `
+            <h3>${p.name.common}</h3>
+            <img src="${p.flags.png}" width="100">
+            <p>Capital: ${p.capital}</p>
+            <p>População: ${p.population.toLocaleString()}</p>
+            <p>Região: ${p.region}</p>
+          `;
+        })
+        .catch(() => {
+          document.getElementById('pais-result').innerHTML = 'País não encontrado';
+        });
+    }
+
+    function paisAleatorio() {
+      fetch('https://restcountries.com/v3.1/all')
+        .then(r => r.json())
+        .then(data => {
+          const p = data[Math.floor(Math.random() * data.length)];
+          document.getElementById('nomePais').value = p.name.common;
+          buscarPais();
+        });
+    }
+
+    window.onload = function() {
+      buscarUsuario();
+      buscarAleatorioSW();
+    }
+  </script>
+
+</body>
+</html>

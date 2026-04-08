@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brilho Rápido - Banco de Dados</title>
+</head>
+<body>
+    <h1> Banco de Dados </h1>
+    <session id="cadastro">
+        <h2> Cadastro </h2>
+        <h3> Nome do Cliente: </h3>
+        <input type="text" id="nomeCliente" placeholder="Insira o nome do cliente aqui">
+        <h3> Carro do Cliente: </h3>
+        <input type="text" id="nomeCarroCliente" placeholder="Insira o nome do carro aqui">
+        <h3> Serviço solicitado: </h3>
+        <input type="text" id="servicoSolicitado" placeholder="Insira o serviço solicitado aqui">
+        <button onclick="cadastrar()" id="cadastrarBtn"> Cadastrar </button>
+    </session>
+    <session id="dadosClientes">
+        <h2> Clientes Cadastrados </h2>
+        <h3> Total de Clientes: <span id="contadorClientes">0</span></h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th> Nome </th>
+                    <th> Carro </th>
+                    <th> Serviço Solicitado </th>
+                    <th> Ação </th>
+                </tr>
+            </thead>
+            <tbody id="tabelaClientes">
+            </tbody>
+        </table> 
+    </session>
+    <script>
+function salvarClientes(clientes) {
+    localStorage.setItem('clientes', JSON.stringify(clientes));
+}
+
+function carregarClientes() {
+    let clientes = localStorage.getItem('clientes');
+    return clientes ? JSON.parse(clientes) : [];
+}
+
+function atualizarContador() {
+    let tabela = document.getElementById('tabelaClientes');
+    let total = tabela.rows.length;
+    document.getElementById('contadorClientes').textContent = total;
+}
+
+function adicionarNaTabela(cliente, index) {
+    let tabela = document.getElementById('tabelaClientes');
+
+    let novaLinha = tabela.insertRow();
+
+    let celulaNome = novaLinha.insertCell(0);
+    let celulaCarro = novaLinha.insertCell(1);
+    let celulaServico = novaLinha.insertCell(2);
+    let celulaAcoes = novaLinha.insertCell(3);
+
+    celulaNome.textContent = cliente.nome;
+    celulaCarro.textContent = cliente.carro;
+    celulaServico.textContent = cliente.servico;
+
+    let botaoExcluir = document.createElement("button");
+    botaoExcluir.textContent = "Excluir";
+
+    botaoExcluir.onclick = function () {
+        removerCliente(index);
+    };
+
+    celulaAcoes.appendChild(botaoExcluir);
+}
+
+function removerCliente(index) {
+    let clientes = carregarClientes();
+
+    clientes.splice(index, 1);
+
+    salvarClientes(clientes);
+
+    renderizarTabela();
+}
+
+function renderizarTabela() {
+    let tabela = document.getElementById('tabelaClientes');
+    tabela.innerHTML = "";
+
+    let clientes = carregarClientes();
+
+    clientes.forEach((cliente, index) => {
+        adicionarNaTabela(cliente, index);
+    });
+
+    atualizarContador();
+}
+
+function cadastrar() {
+    let nomeCliente = document.getElementById('nomeCliente').value;
+    let nomeCarroCliente = document.getElementById('nomeCarroCliente').value;
+    let servico = document.getElementById('servicoSolicitado').value;
+
+    if (
+        nomeCliente.trim() === "" ||
+        nomeCarroCliente.trim() === "" ||
+        servico.trim() === ""
+    ) {
+        alert("Preencha todos os campos!");
+        return;
+    }
+
+    let clientes = carregarClientes();
+
+    let novoCliente = {
+        nome: nomeCliente,
+        carro: nomeCarroCliente,
+        servico: servico
+    };
+
+    clientes.push(novoCliente);
+
+    salvarClientes(clientes);
+
+    renderizarTabela();
+
+    document.getElementById('nomeCliente').value = "";
+    document.getElementById('nomeCarroCliente').value = "";
+    document.getElementById('servicoSolicitado').value = "";
+}
+
+window.onload = function () {
+    renderizarTabela();
+};
+    </script>
+</body>
+</html>
